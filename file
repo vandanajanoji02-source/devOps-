@@ -1,0 +1,184 @@
+# Agile, Azure DevOps, and DevOps: Questions and Answers
+
+These notes explain the main ideas in simple terms. Product names and workflows can vary slightly by team and configuration.
+
+## 1. What is Azure Boards?
+
+**Answer:** Azure Boards is the planning and work-tracking service in Azure DevOps.
+
+Teams use it to create and prioritize work items, plan sprints, track progress on boards, and report on work. A work item can represent a feature, user story, task, or bug.
+
+**Example:** A team building an online shop can use Azure Boards to track work such as "Add shopping cart" and "Fix checkout error."
+
+## 2. What is Jira?
+
+**Answer:** Jira is Atlassian's project and work-management tool.
+
+Software teams use Jira to manage backlogs, stories, tasks, bugs, sprints, and Kanban boards. It also supports workflows, reports, and integrations. Jira is a tool; Agile is a way of organizing work that teams can use with Jira or other tools.
+
+## 3. What is Trello?
+
+**Answer:** Trello is a visual tool for organizing work with boards, lists, and cards.
+
+- A **board** represents a project or team.
+- **Lists** represent stages, such as "To do," "Doing," and "Done."
+- **Cards** represent individual pieces of work.
+
+Trello is flexible and easy to use for many kinds of projects. Azure Boards and Jira offer more software-development planning features, such as detailed work-item types and sprint tools.
+
+## 4. What are Agile work items: Epic, Feature, User Story, Task, Bug, and Issue?
+
+**Answer:** Work items describe and track different sizes or types of work. Their exact names and hierarchy can vary by tool.
+
+| Work item | Meaning | Example |
+|---|---|---|
+| **Epic** | A large goal that may take several releases or teams | Improve online shopping |
+| **Feature** | A major capability that supports an epic | Shopping cart |
+| **User story** | A small user-focused requirement | As a shopper, I want to save items in a cart |
+| **Task** | A specific activity needed to complete work | Create the cart API |
+| **Bug** | A defect where actual behavior differs from expected behavior | Cart total is calculated incorrectly |
+| **Issue** | A general problem or tracked item; in some tools it is a specific work-item type | Investigate slow checkout |
+
+A common hierarchy is:
+
+**Epic → Feature → User Story → Task**
+
+Bugs can be linked to a story or feature, or tracked separately, depending on the team's process.
+
+## 5. How do you organize work items on an Agile board?
+
+**Answer:** Put work in priority order, break large goals into manageable items, and move items through the team's workflow.
+
+1. Add goals and work items to the backlog.
+2. Prioritize the items that deliver the most value.
+3. Break large items into small stories with clear acceptance criteria.
+4. For a sprint team, select a realistic set of stories for the sprint. For Kanban, pull the next highest-priority item when capacity is available.
+5. Track progress through columns such as **To do → In progress → Review → Done**.
+6. Record blockers, keep the board current, and use completed work and feedback to reprioritize.
+
+The team should agree on what "Done" means; finishing code alone may not be enough.
+
+## 6. What are Azure DevOps dashboards?
+
+**Answer:** Dashboards are customizable pages that show project or team information.
+
+They use widgets to display items such as work-item charts, sprint progress, build results, test trends, and useful links. Dashboards help a team see progress and problems in one place. What a person can see depends on their permissions.
+
+## 7. What are Azure Pipelines, and how do you create a pipeline?
+
+**Answer:** Azure Pipelines automates building, testing, and deploying software.
+
+A pipeline can start when code is pushed, a pull request is created, or a scheduled time arrives. A typical setup is:
+
+1. Store the code in Azure Repos or a supported external repository such as GitHub.
+2. In Azure DevOps, create a pipeline and select the repository.
+3. Define build and test steps, often in a version-controlled YAML file such as `azure-pipelines.yml`.
+4. Choose an agent to run the steps.
+5. Add deployment stages and environments if the project needs them.
+6. Run the pipeline, inspect its logs, and resolve any failures.
+
+Use protected variables or service connections for credentials; do not put secrets in source code or pipeline YAML.
+
+## 8. What are service connections, and how do you connect Azure DevOps to external services?
+
+**Answer:** A service connection is a permission-controlled way for an Azure DevOps pipeline to authenticate to an external service.
+
+Examples include an Azure subscription, container registry, or Kubernetes cluster. To create one, open **Project settings → Service connections**, choose the service type, and follow its authentication steps. Give the connection only the access it needs. When supported, prefer federated identity/OIDC; otherwise, protect and rotate credentials.
+
+## 9. What is GitOps?
+
+**Answer:** GitOps is a way to manage deployments and infrastructure by keeping the desired configuration in Git.
+
+An automated controller compares the configuration in Git with the running environment and applies changes to bring the environment into line. For example, a controller can watch Kubernetes configuration in a Git repository and update a cluster after an approved change.
+
+GitOps does not replace Git or CI. CI commonly builds and tests an application; GitOps commonly deploys and keeps the environment aligned with the declared configuration.
+
+## 10. What are the advantages and disadvantages of DevOps?
+
+**Advantages**
+
+- Teams can deliver changes more frequently.
+- Development and operations teams collaborate and share responsibility.
+- Automated builds and deployments make releases more repeatable.
+- Automated tests and monitoring can reveal problems sooner.
+- Teams get better feedback about software quality and reliability.
+
+**Challenges**
+
+- Adoption requires time, training, and changes to team practices.
+- Tools and infrastructure can add cost and complexity.
+- Poorly designed automation can spread mistakes quickly.
+- Focusing only on speed can harm quality or reliability.
+- Legacy systems and organizational silos can make adoption harder.
+
+DevOps is a set of practices and a culture, not a tool that guarantees success.
+
+## 11. What is the role of DevOps in full-stack development?
+
+**Answer:** DevOps connects the development, testing, release, and operation of the whole application.
+
+For a full-stack application, this can include:
+
+- Building and testing frontend and backend code.
+- Packaging the application and its dependencies consistently.
+- Managing infrastructure and configuration as code.
+- Automating safe deployments.
+- Monitoring the live application and using feedback to improve it.
+
+This helps reduce differences between development and production environments. DevOps supports full-stack development; it does not replace good application design or testing.
+
+## 12. What is the difference between Azure DevOps, Git, GitHub, and GitOps?
+
+| Name | What it is |
+|---|---|
+| **Azure DevOps** | Microsoft's suite for planning work, hosting code, building, testing, and deploying software |
+| **Git** | A version-control system that records changes to files |
+| **GitHub** | A platform for hosting Git repositories and collaborating through features such as pull requests and GitHub Actions |
+| **GitOps** | An operational practice that uses Git as the source of truth for desired system configuration |
+
+**In short:** Git tracks changes; GitHub and Azure DevOps provide software-development services; GitOps describes a way to deploy and manage systems using Git.
+
+## 13. What is the difference between Docker and containers? How do they help in DevOps?
+
+**Answer:** A container is a way to run an application with its required files and dependencies in an isolated process. Docker is a company and a set of tools commonly used to build and run containers.
+
+Containers share the host operating system's kernel, so they are generally lighter than virtual machines, which run a separate guest operating system. Docker is one container toolset; other tools and runtimes can also build or run containers.
+
+**DevOps benefit:** Teams can build an application image once and use that same image in testing and deployment, making environments more consistent and releases easier to automate.
+
+Containers still need security updates, safe secret handling, and correct resource limits.
+
+## 14. What is the DevOps process, how does it work, and what are Azure DevOps and GitOps architectures?
+
+**Answer:** DevOps is a continuous cycle of planning, developing, delivering, and improving software.
+
+### The DevOps process
+
+**Plan → Code → Build → Test → Release → Deploy → Operate → Monitor → feedback to Plan**
+
+The team plans work, changes code, builds and tests it automatically, releases it to an environment, and monitors how it performs. Feedback from users, tests, and operations informs the next changes. Security and quality checks should be part of the cycle.
+
+### Typical Azure DevOps delivery architecture
+
+1. **Plan:** Azure Boards tracks requirements, stories, tasks, and bugs.
+2. **Store code:** Azure Repos or a connected provider stores source code and pipeline definitions.
+3. **Build and test:** Azure Pipelines runs jobs on hosted or self-hosted agents.
+4. **Publish artifacts:** Successful jobs publish packages or container images.
+5. **Deploy:** Pipeline stages deploy artifacts to environments such as development, staging, and production. Service connections and approvals may be used.
+6. **Monitor and improve:** Test results, logs, and production monitoring provide feedback to the team.
+
+**Flow:** `Boards → Repository → Pipeline (build/test) → Artifact → Deployment environments → Monitoring`
+
+This is a common logical arrangement, not a single required setup.
+
+### Typical GitOps architecture
+
+1. A Git repository stores the desired application or infrastructure configuration.
+2. A change is reviewed and approved, often through a pull request.
+3. A GitOps controller watches the repository and compares its declared state with the live environment.
+4. The controller applies changes and continues reconciling differences, or drift.
+5. CI separately builds and tests the application and produces a versioned artifact. The configuration in Git identifies which version should be deployed.
+
+**Flow:** `Code change → Review and merge → Git configuration → GitOps controller → Running environment → Status and feedback`
+
+In GitOps, Git stores the desired state and the controller works to make the running system match it. CI and GitOps can work together: CI creates a tested artifact, and GitOps deploys the version declared in Git.
